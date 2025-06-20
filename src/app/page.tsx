@@ -96,41 +96,84 @@ export default function Home() {
   const stats = getStats();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div 
+      className="min-h-screen transition-colors duration-300"
+      style={{ backgroundColor: currentTeam.backgroundColor }}
+    >
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header 
+        className="shadow-lg border-b-2 transition-colors duration-300"
+        style={{ 
+          backgroundColor: currentTeam.surfaceColor,
+          borderBottomColor: currentTeam.borderColor
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div 
-                className="w-10 h-10 rounded-lg flex items-center justify-center"
+                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-105"
                 style={{ backgroundColor: currentTeam.primaryColor }}
               >
-                <Flag className="w-6 h-6" style={{ color: currentTeam.textColor }} />
+                <Flag className="w-7 h-7" style={{ color: currentTeam.textColor }} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">BoxBoxd</h1>
-                <p className="text-sm text-gray-600">Rate and review Formula 1 Grand Prix events</p>
+                <h1 
+                  className="text-3xl font-bold"
+                  style={{ color: currentTeam.textColor }}
+                >
+                  BoxBoxd
+                </h1>
+                <p 
+                  className="text-sm"
+                  style={{ color: currentTeam.mutedColor }}
+                >
+                  Rate and review Formula 1 Grand Prix events
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               {currentUser && (
                 <div className="flex items-center gap-6 text-sm">
-                  <div className="flex items-center gap-2">
+                  <div 
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-300"
+                    style={{ backgroundColor: currentTeam.primaryColor + '20' }}
+                  >
                     <Trophy 
                       className="w-4 h-4" 
                       style={{ color: currentTeam.accentColor }}
                     />
-                    <span className="font-medium">{stats.totalRatings}</span>
-                    <span className="text-gray-600">races rated</span>
+                    <span 
+                      className="font-medium"
+                      style={{ color: currentTeam.textColor }}
+                    >
+                      {stats.totalRatings}
+                    </span>
+                    <span 
+                      style={{ color: currentTeam.mutedColor }}
+                    >
+                      races rated
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div 
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-300"
+                    style={{ backgroundColor: currentTeam.primaryColor + '20' }}
+                  >
                     <Star 
                       className="w-4 h-4" 
                       style={{ color: currentTeam.accentColor }}
                     />
-                    <span className="font-medium">{stats.averageRating.toFixed(1)}</span>
-                    <span className="text-gray-600">avg rating</span>
+                    <span 
+                      className="font-medium"
+                      style={{ color: currentTeam.textColor }}
+                    >
+                      {stats.averageRating.toFixed(1)}
+                    </span>
+                    <span 
+                      style={{ color: currentTeam.mutedColor }}
+                    >
+                      avg rating
+                    </span>
                   </div>
                 </div>
               )}
@@ -162,22 +205,45 @@ export default function Home() {
 
             {loading && (
               <div className="text-center py-12">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
-                <p className="mt-2 text-gray-600">Loading Formula 1 events...</p>
+                <div 
+                  className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-transparent"
+                  style={{ borderTopColor: currentTeam.primaryColor }}
+                ></div>
+                <p 
+                  className="mt-2"
+                  style={{ color: currentTeam.mutedColor }}
+                >
+                  Loading Formula 1 events...
+                </p>
               </div>
             )}
 
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+              <div 
+                className="border rounded-lg p-4 transition-colors duration-300"
+                style={{ 
+                  backgroundColor: currentTeam.accentColor + '20',
+                  borderColor: currentTeam.accentColor,
+                  color: currentTeam.textColor
+                }}
+              >
                 {error}
               </div>
             )}
 
             {!loading && !error && filteredMeetings.length === 0 && (
               <div className="text-center py-12">
-                <Flag className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">No races found</h3>
-                <p className="text-gray-600">
+                <Flag 
+                  className="w-12 h-12 mx-auto mb-4" 
+                  style={{ color: currentTeam.mutedColor }}
+                />
+                <h3 
+                  className="text-lg font-semibold mb-2"
+                  style={{ color: currentTeam.textColor }}
+                >
+                  No races found
+                </h3>
+                <p style={{ color: currentTeam.mutedColor }}>
                   {searchTerm || showRatedOnly
                     ? 'Try adjusting your filters'
                     : 'No Formula 1 events available for the selected year'}

@@ -59,11 +59,17 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
       return (
         <Star
           key={i}
-          className={`w-4 h-4 ${
+          className={`w-5 h-5 transition-all duration-200 ${
             starValue <= rating
-              ? 'fill-yellow-400 text-yellow-400'
-              : 'text-gray-300'
-          } ${interactive ? 'cursor-pointer hover:text-yellow-400' : ''}`}
+              ? 'text-yellow-400'
+              : interactive 
+                ? 'text-gray-300 hover:text-yellow-300' 
+                : 'text-gray-300'
+          } ${interactive ? 'cursor-pointer hover:scale-110' : ''}`}
+          style={{
+            fill: starValue <= rating ? currentTeam.accentColor : 'none',
+            color: starValue <= rating ? currentTeam.accentColor : undefined
+          }}
           onClick={interactive ? () => handleRatingClick(starValue) : undefined}
           onMouseEnter={interactive ? () => setHoverRating(starValue) : undefined}
           onMouseLeave={interactive ? () => setHoverRating(0) : undefined}
@@ -76,81 +82,167 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
   const isPastEvent = meetingDate < new Date();
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="p-6">
-        <div className="flex items-start justify-between mb-4">
+    <div 
+      className="rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] border-2"
+      style={{ 
+        backgroundColor: currentTeam.surfaceColor,
+        borderColor: currentTeam.borderColor
+      }}
+    >
+      {/* Header with gradient */}
+      <div 
+        className="px-6 py-4 border-b-2"
+        style={{ 
+          background: `linear-gradient(135deg, ${currentTeam.primaryColor}15, ${currentTeam.secondaryColor}15)`,
+          borderBottomColor: currentTeam.borderColor
+        }}
+      >
+        <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">
+            <h3 
+              className="text-xl font-bold mb-1"
+              style={{ color: currentTeam.textColor }}
+            >
               {meeting.meeting_name}
             </h3>
-            <p className="text-sm text-gray-600 mb-2">
+            <p 
+              className="text-sm mb-3 font-medium"
+              style={{ color: currentTeam.mutedColor }}
+            >
               {meeting.meeting_official_name}
             </p>
-            <div className="flex items-center gap-4 text-sm text-gray-500">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                {format(meetingDate, 'MMM d, yyyy')}
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              <div 
+                className="flex items-center gap-2 px-3 py-1 rounded-full"
+                style={{ backgroundColor: currentTeam.primaryColor + '20' }}
+              >
+                <Calendar 
+                  className="w-4 h-4" 
+                  style={{ color: currentTeam.primaryColor }}
+                />
+                <span style={{ color: currentTeam.textColor }}>
+                  {format(meetingDate, 'MMM d, yyyy')}
+                </span>
               </div>
-              <div className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                {meeting.location}
+              <div 
+                className="flex items-center gap-2 px-3 py-1 rounded-full"
+                style={{ backgroundColor: currentTeam.secondaryColor + '20' }}
+              >
+                <MapPin 
+                  className="w-4 h-4" 
+                  style={{ color: currentTeam.secondaryColor }}
+                />
+                <span style={{ color: currentTeam.textColor }}>
+                  {meeting.location}
+                </span>
               </div>
-              <div className="flex items-center gap-1">
-                <Flag className="w-4 h-4" />
-                {meeting.country_name}
+              <div 
+                className="flex items-center gap-2 px-3 py-1 rounded-full"
+                style={{ backgroundColor: currentTeam.accentColor + '20' }}
+              >
+                <Flag 
+                  className="w-4 h-4" 
+                  style={{ color: currentTeam.accentColor }}
+                />
+                <span style={{ color: currentTeam.textColor }}>
+                  {meeting.country_name}
+                </span>
               </div>
             </div>
           </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-gray-900">
+          <div className="text-right ml-4">
+            <div 
+              className="text-3xl font-black px-4 py-2 rounded-xl shadow-lg"
+              style={{ 
+                backgroundColor: currentTeam.primaryColor,
+                color: currentTeam.textColor
+              }}
+            >
               {meeting.meeting_code}
             </div>
-            <div className="text-sm text-gray-500">
+            <div 
+              className="text-sm mt-2 font-semibold"
+              style={{ color: currentTeam.mutedColor }}
+            >
               {meeting.circuit_short_name}
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="p-6">
 
         {/* Rating Section */}
         {isPastEvent && (
-          <div className="border-t pt-4">
+          <div 
+            className="border-t-2 pt-6"
+            style={{ borderTopColor: currentTeam.borderColor }}
+          >
             {/* Race Results */}
             <RaceResults 
               meetingKey={meeting.meeting_key} 
               meetingName={meeting.meeting_name}
             />
             
-            <div className="flex items-center justify-between mb-3 mt-4">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium">Community Rating:</span>
-                <div className="flex items-center gap-1">
+            <div 
+              className="flex items-center justify-between mb-4 mt-6 p-4 rounded-xl"
+              style={{ backgroundColor: currentTeam.primaryColor + '10' }}
+            >
+              <div className="flex items-center gap-3">
+                <span 
+                  className="text-sm font-bold"
+                  style={{ color: currentTeam.textColor }}
+                >
+                  Community Rating:
+                </span>
+                <div className="flex items-center gap-2">
                   {renderStars(Math.round(averageRating))}
-                  <span className="text-sm text-gray-600 ml-1">
+                  <span 
+                    className="text-sm font-semibold ml-2 px-2 py-1 rounded-full"
+                    style={{ 
+                      color: currentTeam.textColor,
+                      backgroundColor: currentTeam.accentColor + '20'
+                    }}
+                  >
                     {averageRating.toFixed(1)} ({totalRatings} reviews)
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium">Your Rating:</span>
+            <div 
+              className="flex items-center justify-between p-4 rounded-xl"
+              style={{ backgroundColor: currentTeam.secondaryColor + '10' }}
+            >
+              <div className="flex items-center gap-3">
+                <span 
+                  className="text-sm font-bold"
+                  style={{ color: currentTeam.textColor }}
+                >
+                  Your Rating:
+                </span>
                 {userRating ? (
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     {renderStars(userRating.rating)}
                     <button
                       onClick={() => setIsRating(true)}
-                      className="text-xs hover:opacity-75 ml-2"
-                      style={{ color: currentTeam.primaryColor }}
+                      className="text-xs font-semibold px-3 py-1 rounded-full transition-all duration-300 hover:scale-105"
+                      style={{ 
+                        color: currentTeam.primaryColor,
+                        backgroundColor: currentTeam.primaryColor + '20'
+                      }}
                     >
-                      Edit
+                      Edit Rating
                     </button>
                   </div>
                 ) : (
                   <button
                     onClick={() => setIsRating(true)}
-                    className="text-sm hover:opacity-75"
-                    style={{ color: currentTeam.primaryColor }}
+                    className="text-sm font-semibold px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+                    style={{ 
+                      backgroundColor: currentTeam.primaryColor,
+                      color: currentTeam.textColor
+                    }}
                   >
                     Rate this Grand Prix
                   </button>
@@ -160,9 +252,20 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
 
             {/* Rating Interface */}
             {isRating && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-sm font-medium">Rate this Grand Prix:</span>
+              <div 
+                className="mt-6 p-6 rounded-xl border-2 shadow-lg"
+                style={{ 
+                  backgroundColor: currentTeam.backgroundColor,
+                  borderColor: currentTeam.primaryColor
+                }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span 
+                    className="text-sm font-bold"
+                    style={{ color: currentTeam.textColor }}
+                  >
+                    Rate this Grand Prix:
+                  </span>
                   <div className="flex items-center gap-1">
                     {renderStars(hoverRating || userRating?.rating || 0, true)}
                   </div>
@@ -171,13 +274,24 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
                   value={review}
                   onChange={(e) => setReview(e.target.value)}
                   placeholder="Write a review (optional)..."
-                  className="w-full p-2 border border-gray-300 rounded-md text-sm resize-none"
-                  rows={3}
+                  className="w-full p-4 rounded-lg text-sm resize-none transition-all duration-300 focus:outline-none focus:ring-2"
+                  style={{
+                    backgroundColor: currentTeam.surfaceColor,
+                    color: currentTeam.textColor,
+                    borderColor: currentTeam.borderColor,
+                    border: `2px solid ${currentTeam.borderColor}`,
+                    '--tw-ring-color': currentTeam.primaryColor
+                  } as React.CSSProperties}
+                  rows={4}
                 />
-                <div className="flex gap-2 mt-2">
+                <div className="flex gap-3 mt-4">
                   <button
                     onClick={() => setIsRating(false)}
-                    className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+                    className="px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300"
+                    style={{ 
+                      color: currentTeam.mutedColor,
+                      backgroundColor: currentTeam.mutedColor + '20'
+                    }}
                   >
                     Cancel
                   </button>
@@ -187,23 +301,43 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
 
             {/* User Review */}
             {userRating?.review && (
-              <div className="mt-3 p-3 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-700">{userRating.review}</p>
+              <div 
+                className="mt-4 p-4 rounded-xl border-l-4"
+                style={{ 
+                  backgroundColor: currentTeam.accentColor + '10',
+                  borderLeftColor: currentTeam.accentColor
+                }}
+              >
+                <p 
+                  className="text-sm font-medium italic"
+                  style={{ color: currentTeam.textColor }}
+                >
+                  "{userRating.review}"
+                </p>
               </div>
             )}
           </div>
         )}
 
         {!isPastEvent && (
-          <div className="border-t pt-4">
+          <div 
+            className="border-t-2 pt-6"
+            style={{ borderTopColor: currentTeam.borderColor }}
+          >
             {/* Race Information for upcoming events */}
             <RaceResults 
               meetingKey={meeting.meeting_key} 
               meetingName={meeting.meeting_name}
             />
             
-            <div className="text-sm text-gray-500 italic mt-4">
-              This Grand Prix hasn't happened yet. Come back after the event to rate it!
+            <div 
+              className="text-sm italic mt-6 p-4 rounded-xl text-center"
+              style={{ 
+                color: currentTeam.mutedColor,
+                backgroundColor: currentTeam.mutedColor + '10'
+              }}
+            >
+              🏁 This Grand Prix hasn't happened yet. Come back after the event to rate it!
             </div>
           </div>
         )}

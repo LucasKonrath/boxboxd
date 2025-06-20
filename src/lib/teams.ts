@@ -6,6 +6,11 @@ export interface F1Team {
   secondaryColor: string;
   accentColor: string;
   textColor: string;
+  backgroundColor: string;
+  surfaceColor: string;
+  mutedColor: string;
+  borderColor: string;
+  hoverColor: string;
   logo?: string;
 }
 
@@ -18,6 +23,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#1E40AF',
     accentColor: '#FED501',
     textColor: '#FFFFFF',
+    backgroundColor: '#0F1629',
+    surfaceColor: '#1E2951',
+    mutedColor: '#94A3B8',
+    borderColor: '#475569',
+    hoverColor: '#2563EB',
   },
   {
     id: 'mercedes',
@@ -27,6 +37,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#00D2BE',
     accentColor: '#C0C0C0',
     textColor: '#000000',
+    backgroundColor: '#F0FDFA',
+    surfaceColor: '#CCFBF1',
+    mutedColor: '#5EEAD4',
+    borderColor: '#2DD4BF',
+    hoverColor: '#14B8A6',
   },
   {
     id: 'ferrari',
@@ -36,6 +51,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#DC143C',
     accentColor: '#FFD700',
     textColor: '#FFFFFF',
+    backgroundColor: '#450A0A',
+    surfaceColor: '#7F1D1D',
+    mutedColor: '#FCA5A5',
+    borderColor: '#EF4444',
+    hoverColor: '#B91C1C',
   },
   {
     id: 'mclaren',
@@ -45,6 +65,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#FF6600',
     accentColor: '#0099CC',
     textColor: '#FFFFFF',
+    backgroundColor: '#431407',
+    surfaceColor: '#9A3412',
+    mutedColor: '#FDBA74',
+    borderColor: '#F97316',
+    hoverColor: '#EA580C',
   },
   {
     id: 'aston-martin',
@@ -54,6 +79,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#1B7A5A',
     accentColor: '#CEDC00',
     textColor: '#FFFFFF',
+    backgroundColor: '#022C22',
+    surfaceColor: '#064E3B',
+    mutedColor: '#86EFAC',
+    borderColor: '#10B981',
+    hoverColor: '#059669',
   },
   {
     id: 'alpine',
@@ -63,6 +93,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#FF69B4',
     accentColor: '#0090FF',
     textColor: '#000000',
+    backgroundColor: '#FDF2F8',
+    surfaceColor: '#FCE7F3',
+    mutedColor: '#F9A8D4',
+    borderColor: '#EC4899',
+    hoverColor: '#DB2777',
   },
   {
     id: 'williams',
@@ -72,6 +107,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#4A90E2',
     accentColor: '#FFFFFF',
     textColor: '#000000',
+    backgroundColor: '#F0F9FF',
+    surfaceColor: '#E0F2FE',
+    mutedColor: '#93C5FD',
+    borderColor: '#3B82F6',
+    hoverColor: '#2563EB',
   },
   {
     id: 'rb',
@@ -81,6 +121,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#4169E1',
     accentColor: '#FFFFFF',
     textColor: '#FFFFFF',
+    backgroundColor: '#1E1B4B',
+    surfaceColor: '#312E81',
+    mutedColor: '#A5B4FC',
+    borderColor: '#6366F1',
+    hoverColor: '#4F46E5',
   },
   {
     id: 'kick-sauber',
@@ -90,6 +135,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#32CD32',
     accentColor: '#000000',
     textColor: '#000000',
+    backgroundColor: '#F0FDF4',
+    surfaceColor: '#DCFCE7',
+    mutedColor: '#86EFAC',
+    borderColor: '#22C55E',
+    hoverColor: '#16A34A',
   },
   {
     id: 'haas',
@@ -99,6 +149,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#808080',
     accentColor: '#DC143C',
     textColor: '#000000',
+    backgroundColor: '#F8FAFC',
+    surfaceColor: '#F1F5F9',
+    mutedColor: '#CBD5E1',
+    borderColor: '#64748B',
+    hoverColor: '#475569',
   },
   {
     id: 'default',
@@ -108,6 +163,11 @@ export const F1_TEAMS: F1Team[] = [
     secondaryColor: '#DC143C',
     accentColor: '#FFD700',
     textColor: '#FFFFFF',
+    backgroundColor: '#450A0A',
+    surfaceColor: '#7F1D1D',
+    mutedColor: '#FCA5A5',
+    borderColor: '#EF4444',
+    hoverColor: '#B91C1C',
   },
 ];
 

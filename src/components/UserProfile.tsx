@@ -5,12 +5,14 @@ import { User, Settings, Database } from 'lucide-react';
 import { F1User } from '@/types/f1';
 import { db } from '@/lib/db';
 import { seedDatabase } from '@/lib/seed-data';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface UserProfileProps {
   onUserChange: (user: F1User | null) => void;
 }
 
 export function UserProfile({ onUserChange }: UserProfileProps) {
+  const { currentTeam } = useTheme();
   const [currentUser, setCurrentUser] = useState<F1User | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [username, setUsername] = useState('');
@@ -51,18 +53,50 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
   if (!currentUser) {
     return (
       <div className="space-y-4">
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div 
+          className="rounded-lg shadow-lg p-6 border transition-all duration-300"
+          style={{ 
+            backgroundColor: currentTeam.surfaceColor,
+            borderColor: currentTeam.borderColor
+          }}
+        >
           <div className="text-center">
-            <User className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Join BoxBoxd</h3>
-            <p className="text-gray-600 mb-4">
+            <div 
+              className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: currentTeam.mutedColor }}
+            >
+              <User 
+                className="w-6 h-6" 
+                style={{ color: currentTeam.textColor }}
+              />
+            </div>
+            <h3 
+              className="text-lg font-semibold mb-2"
+              style={{ color: currentTeam.textColor }}
+            >
+              Join BoxBoxd
+            </h3>
+            <p 
+              className="mb-4"
+              style={{ color: currentTeam.mutedColor }}
+            >
               Create an account to start rating Formula 1 Grand Prix events
             </p>
             
             {!showCreateForm ? (
               <button
                 onClick={() => setShowCreateForm(true)}
-                className="w-full bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                className="w-full px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+                style={{ 
+                  backgroundColor: currentTeam.primaryColor,
+                  color: currentTeam.textColor
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = currentTeam.hoverColor;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = currentTeam.primaryColor;
+                }}
               >
                 Create Account
               </button>
@@ -73,7 +107,14 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full p-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                  style={{ 
+                    backgroundColor: currentTeam.backgroundColor,
+                    color: currentTeam.textColor,
+                    borderColor: currentTeam.borderColor,
+                    border: `1px solid ${currentTeam.borderColor}`,
+                    '--tw-ring-color': currentTeam.primaryColor
+                  } as React.CSSProperties}
                   required
                 />
                 <input
@@ -81,20 +122,41 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full p-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                  style={{ 
+                    backgroundColor: currentTeam.backgroundColor,
+                    color: currentTeam.textColor,
+                    borderColor: currentTeam.borderColor,
+                    border: `1px solid ${currentTeam.borderColor}`,
+                    '--tw-ring-color': currentTeam.primaryColor
+                  } as React.CSSProperties}
                   required
                 />
                 <div className="flex gap-2">
                   <button
                     type="submit"
-                    className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
+                    className="flex-1 py-2 rounded-lg font-semibold transition-all duration-300"
+                    style={{ 
+                      backgroundColor: currentTeam.primaryColor,
+                      color: currentTeam.textColor
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = currentTeam.hoverColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = currentTeam.primaryColor;
+                    }}
                   >
                     Create Account
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowCreateForm(false)}
-                    className="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="flex-1 py-2 rounded-lg font-semibold transition-all duration-300"
+                    style={{ 
+                      backgroundColor: currentTeam.mutedColor,
+                      color: currentTeam.backgroundColor
+                    }}
                   >
                     Cancel
                   </button>
@@ -105,17 +167,38 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
         </div>
         
         {/* Demo Data Seeder */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div 
+          className="border rounded-lg p-4 transition-all duration-300"
+          style={{ 
+            backgroundColor: currentTeam.accentColor + '20',
+            borderColor: currentTeam.accentColor
+          }}
+        >
           <div className="flex items-center gap-2 mb-2">
-            <Database className="w-4 h-4 text-blue-600" />
-            <h4 className="font-medium text-blue-900">Try Demo Data</h4>
+            <Database 
+              className="w-4 h-4" 
+              style={{ color: currentTeam.accentColor }}
+            />
+            <h4 
+              className="font-medium"
+              style={{ color: currentTeam.textColor }}
+            >
+              Try Demo Data
+            </h4>
           </div>
-          <p className="text-sm text-blue-700 mb-3">
+          <p 
+            className="text-sm mb-3"
+            style={{ color: currentTeam.mutedColor }}
+          >
             Load sample ratings and users to explore the app features
           </p>
           <button
             onClick={handleSeedData}
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            className="w-full px-4 py-2 rounded-lg transition-all duration-300 text-sm font-semibold hover:scale-105"
+            style={{ 
+              backgroundColor: currentTeam.accentColor,
+              color: currentTeam.backgroundColor
+            }}
           >
             Load Demo Data
           </button>
@@ -125,24 +208,69 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div 
+      className="rounded-lg shadow-lg p-6 border transition-all duration-300"
+      style={{ 
+        backgroundColor: currentTeam.surfaceColor,
+        borderColor: currentTeam.borderColor
+      }}
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-            <User className="w-6 h-6 text-white" />
+          <div 
+            className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+            style={{ backgroundColor: currentTeam.primaryColor }}
+          >
+            <User 
+              className="w-6 h-6" 
+              style={{ color: currentTeam.textColor }}
+            />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">{currentUser.username}</h3>
-            <p className="text-sm text-gray-600">{currentUser.email}</p>
+            <h3 
+              className="font-semibold"
+              style={{ color: currentTeam.textColor }}
+            >
+              {currentUser.username}
+            </h3>
+            <p 
+              className="text-sm"
+              style={{ color: currentTeam.mutedColor }}
+            >
+              {currentUser.email}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="p-2 text-gray-400 hover:text-gray-600">
+          <button 
+            className="p-2 rounded-lg transition-all duration-300 hover:scale-110"
+            style={{ color: currentTeam.mutedColor }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = currentTeam.primaryColor + '20';
+              e.currentTarget.style.color = currentTeam.primaryColor;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = currentTeam.mutedColor;
+            }}
+          >
             <Settings className="w-4 h-4" />
           </button>
           <button
             onClick={handleLogout}
-            className="text-sm text-red-600 hover:text-red-800"
+            className="text-sm font-semibold px-3 py-1 rounded-lg transition-all duration-300"
+            style={{ 
+              color: currentTeam.accentColor,
+              backgroundColor: currentTeam.accentColor + '20'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = currentTeam.accentColor;
+              e.currentTarget.style.color = currentTeam.backgroundColor;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = currentTeam.accentColor + '20';
+              e.currentTarget.style.color = currentTeam.accentColor;
+            }}
           >
             Logout
           </button>

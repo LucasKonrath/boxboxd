@@ -29,34 +29,56 @@ export function Filters({
   const { currentTeam } = useTheme();
   
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div 
+      className="rounded-lg shadow-lg p-6 mb-6 border transition-all duration-300"
+      style={{ 
+        backgroundColor: currentTeam.surfaceColor,
+        borderColor: currentTeam.borderColor
+      }}
+    >
       <div className="flex flex-col md:flex-row gap-4">
         {/* Search */}
         <div className="flex-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+              style={{ color: searchTerm ? currentTeam.primaryColor : currentTeam.mutedColor }}
+            />
             <input
               type="text"
               placeholder="Search Grand Prix events..."
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-opacity-50"
+              className="w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:outline-none transition-all duration-300"
               style={{
-                '--tw-ring-color': currentTeam.primaryColor,
-                'borderColor': searchTerm ? currentTeam.primaryColor : undefined
+                backgroundColor: currentTeam.backgroundColor,
+                color: currentTeam.textColor,
+                border: `2px solid ${searchTerm ? currentTeam.primaryColor : currentTeam.borderColor}`,
+                '--tw-ring-color': currentTeam.primaryColor
               } as React.CSSProperties}
             />
           </div>
         </div>
 
         {/* Year Filter */}
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-gray-400" />
+        <div className="flex items-center gap-3">
+          <div 
+            className="p-2 rounded-lg"
+            style={{ backgroundColor: currentTeam.primaryColor + '20' }}
+          >
+            <Calendar 
+              className="w-4 h-4" 
+              style={{ color: currentTeam.primaryColor }}
+            />
+          </div>
           <select
             value={selectedYear || ''}
             onChange={(e) => onYearChange(e.target.value ? parseInt(e.target.value) : null)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-opacity-50"
+            className="px-4 py-3 rounded-lg focus:ring-2 focus:outline-none transition-all duration-300 font-medium"
             style={{
+              backgroundColor: currentTeam.backgroundColor,
+              color: currentTeam.textColor,
+              border: `2px solid ${currentTeam.borderColor}`,
               '--tw-ring-color': currentTeam.primaryColor
             } as React.CSSProperties}
           >
@@ -71,16 +93,31 @@ export function Filters({
 
         {/* Show Rated Only */}
         {currentUser && (
-          <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-gray-400" />
-            <label className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-3">
+            <div 
+              className="p-2 rounded-lg"
+              style={{ backgroundColor: currentTeam.accentColor + '20' }}
+            >
+              <Filter 
+                className="w-4 h-4" 
+                style={{ color: currentTeam.accentColor }}
+              />
+            </div>
+            <label 
+              className="flex items-center gap-2 text-sm font-medium cursor-pointer px-3 py-2 rounded-lg transition-all duration-300"
+              style={{ 
+                color: currentTeam.textColor,
+                backgroundColor: showRatedOnly ? currentTeam.primaryColor + '20' : 'transparent'
+              }}
+            >
               <input
                 type="checkbox"
                 checked={showRatedOnly}
                 onChange={(e) => onShowRatedOnlyChange(e.target.checked)}
-                className="rounded border-gray-300 focus:ring-2"
+                className="rounded border-2 focus:ring-2 w-4 h-4"
                 style={{
                   accentColor: currentTeam.primaryColor,
+                  borderColor: currentTeam.borderColor,
                   '--tw-ring-color': currentTeam.primaryColor
                 } as React.CSSProperties}
               />
