@@ -8,6 +8,7 @@ A Letterboxd-inspired web application for the Formula 1 community, allowing user
 - **Race Results**: See race finishing positions with podium highlights and detailed classification
 - **Rate & Review**: Rate races on a 5-star scale and write detailed reviews
 - **User Profiles**: Create accounts to track your ratings and reviews
+- **Team Themes**: Customize the app's color scheme based on your favorite F1 team
 - **Smart Filtering**: Filter by year, search by location/circuit, or view only your rated events
 - **Real-time Data**: Fetches live F1 data from the OpenF1 API
 - **Beautiful UI**: Modern, responsive design inspired by Letterboxd
@@ -64,6 +65,12 @@ BoxBoxd uses the [OpenF1 API](https://openf1.org/) to fetch real Formula 1 data:
 - Optional written reviews
 - Edit existing ratings
 - Community averages
+
+### Team Themes
+- Choose from all 10 F1 teams plus default F1 branding
+- Real team colors: Red Bull, Mercedes, Ferrari, McLaren, Aston Martin, Alpine, Williams, RB, Kick Sauber, Haas
+- Dynamic color application across buttons, icons, and interactive elements
+- Persistent theme selection stored locally
 
 ### Race Results
 - Final race classification with positions 1-10

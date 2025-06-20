@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Search, Filter, Calendar } from 'lucide-react';
 import { F1Meeting, F1User } from '@/types/f1';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface FiltersProps {
   years: number[];
@@ -25,6 +26,8 @@ export function Filters({
   onShowRatedOnlyChange,
   currentUser,
 }: FiltersProps) {
+  const { currentTeam } = useTheme();
+  
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-col md:flex-row gap-4">
@@ -37,7 +40,11 @@ export function Filters({
               placeholder="Search Grand Prix events..."
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-opacity-50"
+              style={{
+                '--tw-ring-color': currentTeam.primaryColor,
+                'borderColor': searchTerm ? currentTeam.primaryColor : undefined
+              } as React.CSSProperties}
             />
           </div>
         </div>
@@ -48,7 +55,10 @@ export function Filters({
           <select
             value={selectedYear || ''}
             onChange={(e) => onYearChange(e.target.value ? parseInt(e.target.value) : null)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-opacity-50"
+            style={{
+              '--tw-ring-color': currentTeam.primaryColor
+            } as React.CSSProperties}
           >
             <option value="">All Years</option>
             {years.map((year) => (
@@ -68,7 +78,11 @@ export function Filters({
                 type="checkbox"
                 checked={showRatedOnly}
                 onChange={(e) => onShowRatedOnlyChange(e.target.checked)}
-                className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                className="rounded border-gray-300 focus:ring-2"
+                style={{
+                  accentColor: currentTeam.primaryColor,
+                  '--tw-ring-color': currentTeam.primaryColor
+                } as React.CSSProperties}
               />
               My Ratings Only
             </label>

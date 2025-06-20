@@ -7,9 +7,12 @@ import { db } from '@/lib/db';
 import { MeetingCard } from '@/components/MeetingCard';
 import { UserProfile } from '@/components/UserProfile';
 import { Filters } from '@/components/Filters';
+import { ThemeSelector } from '@/components/ThemeSelector';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Flag, Trophy, Star } from 'lucide-react';
 
 export default function Home() {
+  const { currentTeam } = useTheme();
   const [meetings, setMeetings] = useState<F1Meeting[]>([]);
   const [filteredMeetings, setFilteredMeetings] = useState<F1Meeting[]>([]);
   const [loading, setLoading] = useState(true);
@@ -99,28 +102,40 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
-                <Flag className="w-6 h-6 text-white" />
+              <div 
+                className="w-10 h-10 rounded-lg flex items-center justify-center"
+                style={{ backgroundColor: currentTeam.primaryColor }}
+              >
+                <Flag className="w-6 h-6" style={{ color: currentTeam.textColor }} />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">BoxBoxd</h1>
                 <p className="text-sm text-gray-600">Rate and review Formula 1 Grand Prix events</p>
               </div>
             </div>
-            {currentUser && (
-              <div className="flex items-center gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                  <Trophy className="w-4 h-4 text-yellow-500" />
-                  <span className="font-medium">{stats.totalRatings}</span>
-                  <span className="text-gray-600">races rated</span>
+            <div className="flex items-center gap-4">
+              {currentUser && (
+                <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Trophy 
+                      className="w-4 h-4" 
+                      style={{ color: currentTeam.accentColor }}
+                    />
+                    <span className="font-medium">{stats.totalRatings}</span>
+                    <span className="text-gray-600">races rated</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Star 
+                      className="w-4 h-4" 
+                      style={{ color: currentTeam.accentColor }}
+                    />
+                    <span className="font-medium">{stats.averageRating.toFixed(1)}</span>
+                    <span className="text-gray-600">avg rating</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-yellow-500" />
-                  <span className="font-medium">{stats.averageRating.toFixed(1)}</span>
-                  <span className="text-gray-600">avg rating</span>
-                </div>
-              </div>
-            )}
+              )}
+              <ThemeSelector />
+            </div>
           </div>
         </div>
       </header>

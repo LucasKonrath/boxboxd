@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { F1Meeting, F1Rating } from '@/types/f1';
 import { db } from '@/lib/db';
 import { RaceResults } from './RaceResults';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface MeetingCardProps {
   meeting: F1Meeting;
@@ -13,6 +14,7 @@ interface MeetingCardProps {
 }
 
 export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
+  const { currentTeam } = useTheme();
   const [userRating, setUserRating] = useState<F1Rating | null>(null);
   const [averageRating, setAverageRating] = useState(0);
   const [totalRatings, setTotalRatings] = useState(0);
@@ -138,7 +140,8 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
                     {renderStars(userRating.rating)}
                     <button
                       onClick={() => setIsRating(true)}
-                      className="text-xs text-blue-600 hover:text-blue-800 ml-2"
+                      className="text-xs hover:opacity-75 ml-2"
+                      style={{ color: currentTeam.primaryColor }}
                     >
                       Edit
                     </button>
@@ -146,7 +149,8 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
                 ) : (
                   <button
                     onClick={() => setIsRating(true)}
-                    className="text-sm text-blue-600 hover:text-blue-800"
+                    className="text-sm hover:opacity-75"
+                    style={{ color: currentTeam.primaryColor }}
                   >
                     Rate this Grand Prix
                   </button>

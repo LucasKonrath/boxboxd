@@ -3,13 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  /* Team theme colors - default F1 red */
+  --team-primary: #E10600;
+  --team-secondary: #DC143C;
+  --team-accent: #FFD700;
+  --team-text: #FFFFFF;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +21,29 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Theme utility classes */
+.theme-primary {
+  color: var(--team-primary);
+}
+
+.theme-bg-primary {
+  background-color: var(--team-primary);
+}
+
+.theme-bg-secondary {
+  background-color: var(--team-secondary);
+}
+
+.theme-accent {
+  color: var(--team-accent);
+}
+
+.theme-bg-accent {
+  background-color: var(--team-accent);
+}
+
+.theme-text {
+  color: var(--team-text);
 }
