@@ -5,6 +5,7 @@ A Letterboxd-inspired web application for the Formula 1 community, allowing user
 ## Features
 
 - **Browse F1 Events**: View Formula 1 Grand Prix events from multiple seasons
+- **Race Results**: See race finishing positions with podium highlights and detailed classification
 - **Rate & Review**: Rate races on a 5-star scale and write detailed reviews
 - **User Profiles**: Create accounts to track your ratings and reviews
 - **Smart Filtering**: Filter by year, search by location/circuit, or view only your rated events
@@ -63,6 +64,12 @@ BoxBoxd uses the [OpenF1 API](https://openf1.org/) to fetch real Formula 1 data:
 - Optional written reviews
 - Edit existing ratings
 - Community averages
+
+### Race Results
+- Final race classification with positions 1-10
+- Podium summary with driver acronyms and team colors
+- Expandable detailed results view
+- Integration with live F1 timing data
 
 ### Filtering & Search
 - Filter by year (2023-current)

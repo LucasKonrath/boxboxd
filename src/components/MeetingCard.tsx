@@ -5,6 +5,7 @@ import { Star, Calendar, MapPin, Flag } from 'lucide-react';
 import { format } from 'date-fns';
 import { F1Meeting, F1Rating } from '@/types/f1';
 import { db } from '@/lib/db';
+import { RaceResults } from './RaceResults';
 
 interface MeetingCardProps {
   meeting: F1Meeting;
@@ -111,7 +112,13 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
         {/* Rating Section */}
         {isPastEvent && (
           <div className="border-t pt-4">
-            <div className="flex items-center justify-between mb-3">
+            {/* Race Results */}
+            <RaceResults 
+              meetingKey={meeting.meeting_key} 
+              meetingName={meeting.meeting_name}
+            />
+            
+            <div className="flex items-center justify-between mb-3 mt-4">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">Community Rating:</span>
                 <div className="flex items-center gap-1">
@@ -185,7 +192,13 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
 
         {!isPastEvent && (
           <div className="border-t pt-4">
-            <div className="text-sm text-gray-500 italic">
+            {/* Race Information for upcoming events */}
+            <RaceResults 
+              meetingKey={meeting.meeting_key} 
+              meetingName={meeting.meeting_name}
+            />
+            
+            <div className="text-sm text-gray-500 italic mt-4">
               This Grand Prix hasn't happened yet. Come back after the event to rate it!
             </div>
           </div>
