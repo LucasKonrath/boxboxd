@@ -97,10 +97,10 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
           borderBottomColor: currentTeam.borderColor
         }}
       >
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 mb-3">
+          <div className="flex-1 min-w-0">
             <h3 
-              className="text-xl font-bold mb-1"
+              className="text-lg lg:text-xl font-bold mb-1"
               style={{ color: currentTeam.textColor }}
             >
               {meeting.meeting_name}
@@ -111,48 +111,57 @@ export function MeetingCard({ meeting, onRate }: MeetingCardProps) {
             >
               {meeting.meeting_official_name}
             </p>
-            <div className="flex flex-wrap items-center gap-4 text-sm">
+            <div className="flex flex-wrap items-center gap-2 lg:gap-4 text-sm">
               <div 
-                className="flex items-center gap-2 px-3 py-1 rounded-full"
+                className="flex items-center gap-2 px-2 lg:px-3 py-1 rounded-full"
                 style={{ backgroundColor: currentTeam.primaryColor + '20' }}
               >
                 <Calendar 
-                  className="w-4 h-4" 
+                  className="w-4 h-4 flex-shrink-0" 
                   style={{ color: currentTeam.primaryColor }}
                 />
-                <span style={{ color: currentTeam.textColor }}>
+                <span 
+                  className="whitespace-nowrap"
+                  style={{ color: currentTeam.textColor }}
+                >
                   {format(meetingDate, 'MMM d, yyyy')}
                 </span>
               </div>
               <div 
-                className="flex items-center gap-2 px-3 py-1 rounded-full"
+                className="flex items-center gap-2 px-2 lg:px-3 py-1 rounded-full"
                 style={{ backgroundColor: currentTeam.secondaryColor + '20' }}
               >
                 <MapPin 
-                  className="w-4 h-4" 
+                  className="w-4 h-4 flex-shrink-0" 
                   style={{ color: currentTeam.secondaryColor }}
                 />
-                <span style={{ color: currentTeam.textColor }}>
+                <span 
+                  className="truncate"
+                  style={{ color: currentTeam.textColor }}
+                >
                   {meeting.location}
                 </span>
               </div>
               <div 
-                className="flex items-center gap-2 px-3 py-1 rounded-full"
+                className="flex items-center gap-2 px-2 lg:px-3 py-1 rounded-full"
                 style={{ backgroundColor: currentTeam.accentColor + '20' }}
               >
                 <Flag 
-                  className="w-4 h-4" 
+                  className="w-4 h-4 flex-shrink-0" 
                   style={{ color: currentTeam.accentColor }}
                 />
-                <span style={{ color: currentTeam.textColor }}>
+                <span 
+                  className="truncate"
+                  style={{ color: currentTeam.textColor }}
+                >
                   {meeting.country_name}
                 </span>
               </div>
             </div>
           </div>
-          <div className="text-right ml-4">
+          <div className="flex-shrink-0 text-center lg:text-right">
             <div 
-              className="text-3xl font-black px-4 py-2 rounded-xl shadow-lg"
+              className="text-2xl lg:text-3xl font-black px-3 lg:px-4 py-2 rounded-xl shadow-lg inline-block"
               style={{ 
                 backgroundColor: currentTeam.primaryColor,
                 color: currentTeam.textColor

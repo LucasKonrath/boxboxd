@@ -49,7 +49,7 @@ export function ThemeSelector() {
 
       {isOpen && (
         <div 
-          className="absolute top-full right-0 mt-2 rounded-xl shadow-2xl z-50 min-w-80 border-2"
+          className="absolute top-full right-0 mt-2 rounded-xl shadow-2xl z-50 min-w-80 max-w-96 border-2"
           style={{
             backgroundColor: currentTeam.surfaceColor,
             borderColor: currentTeam.borderColor
@@ -93,7 +93,7 @@ export function ThemeSelector() {
               <button
                 key={team.id}
                 onClick={() => handleTeamSelect(team)}
-                className="w-full flex items-center justify-between p-4 transition-all duration-300 hover:scale-[1.02] border-b"
+                className="w-full flex items-center justify-between p-3 transition-all duration-300 hover:scale-[1.01] border-b last:border-b-0"
                 style={{
                   borderBottomColor: currentTeam.borderColor + '30',
                   backgroundColor: currentTeam.id === team.id ? team.primaryColor + '20' : 'transparent'
@@ -105,24 +105,24 @@ export function ThemeSelector() {
                   e.currentTarget.style.backgroundColor = currentTeam.id === team.id ? team.primaryColor + '20' : 'transparent';
                 }}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <div className="flex gap-1">
                     <div
-                      className="w-5 h-5 rounded-lg shadow-lg border"
+                      className="w-4 h-4 rounded-lg shadow-sm border"
                       style={{ 
                         backgroundColor: team.primaryColor,
                         borderColor: team.borderColor
                       }}
                     />
                     <div
-                      className="w-5 h-5 rounded-lg shadow-lg border"
+                      className="w-4 h-4 rounded-lg shadow-sm border"
                       style={{ 
                         backgroundColor: team.secondaryColor,
                         borderColor: team.borderColor
                       }}
                     />
                     <div
-                      className="w-5 h-5 rounded-lg shadow-lg border"
+                      className="w-4 h-4 rounded-lg shadow-sm border"
                       style={{ 
                         backgroundColor: team.accentColor,
                         borderColor: team.borderColor
@@ -137,7 +137,7 @@ export function ThemeSelector() {
                       {team.shortName}
                     </div>
                     <div 
-                      className="text-xs"
+                      className="text-xs truncate max-w-48"
                       style={{ color: currentTeam.mutedColor }}
                     >
                       {team.name}
@@ -146,7 +146,7 @@ export function ThemeSelector() {
                 </div>
                 {currentTeam.id === team.id && (
                   <div 
-                    className="p-1 rounded-full"
+                    className="p-1 rounded-full flex-shrink-0"
                     style={{ backgroundColor: team.primaryColor }}
                   >
                     <Check 

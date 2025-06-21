@@ -215,10 +215,10 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
         borderColor: currentTeam.borderColor
       }}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <div 
-            className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+            className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg flex-shrink-0"
             style={{ backgroundColor: currentTeam.primaryColor }}
           >
             <User 
@@ -226,24 +226,24 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
               style={{ color: currentTeam.textColor }}
             />
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <h3 
-              className="font-semibold"
+              className="font-semibold truncate"
               style={{ color: currentTeam.textColor }}
             >
               {currentUser.username}
             </h3>
             <p 
-              className="text-sm"
+              className="text-sm truncate"
               style={{ color: currentTeam.mutedColor }}
             >
               {currentUser.email}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 flex-shrink-0">
           <button 
-            className="p-2 rounded-lg transition-all duration-300 hover:scale-110"
+            className="p-2 rounded-lg transition-all duration-300 hover:scale-110 flex-shrink-0"
             style={{ color: currentTeam.mutedColor }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = currentTeam.primaryColor + '20';
@@ -253,12 +253,13 @@ export function UserProfile({ onUserChange }: UserProfileProps) {
               e.currentTarget.style.backgroundColor = 'transparent';
               e.currentTarget.style.color = currentTeam.mutedColor;
             }}
+            title="Settings"
           >
             <Settings className="w-4 h-4" />
           </button>
           <button
             onClick={handleLogout}
-            className="text-sm font-semibold px-3 py-1 rounded-lg transition-all duration-300"
+            className="text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-300 whitespace-nowrap flex-shrink-0"
             style={{ 
               color: currentTeam.accentColor,
               backgroundColor: currentTeam.accentColor + '20'
